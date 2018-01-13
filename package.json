@@ -1,10 +1,10 @@
 {
-  "name": "distjs",
-  "version": "0.0.0-development",
+  "name": "@jimpick/distjs-dat",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "distjs": "./bin.js"
+    "distjs-dat": "./bin.js"
   },
   "scripts": {
     "commit": "git-cz",

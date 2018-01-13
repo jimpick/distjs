@@ -27,8 +27,7 @@ const mkdistfile = cwd => {
 exports.build = async (cwd, name) => {
   mkdistfile(cwd)
   console.log('Creating dist directory...')
-  rimraf.sync(path.join(cwd, 'dist'))
-  mkdirp.sync(path.join(cwd, 'dist'))
+  mkdirp.sync(path.join(cwd, 'dist', path.dirname(name)))
   console.log('Creating browserify bundle...')
   let bundle = await _browserify(path.join(cwd, 'dist.js'))
   console.log(`Bundle size: ${bundle.length}`)
@@ -63,7 +62,8 @@ const install = cwd => {
 
 if (process.argv.length === 2) {
   let cwd = process.cwd()
-  exports.build(cwd, require(`${cwd}/package.json`).name)
+  const {name, version} = require(`${cwd}/package.json`)
+  exports.build(cwd, `${name}-${version}`)
 } else if (process.argv.length === 3) {
   let cwd = process.cwd()
   let command = process.argv[2]
