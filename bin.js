@@ -25,18 +25,19 @@ const mkdistfile = cwd => {
 }
 
 exports.build = async (cwd, name) => {
+  const shortName = path.basename(name)
   mkdistfile(cwd)
   console.log('Creating dist directory...')
-  mkdirp.sync(path.join(cwd, 'dist', path.dirname(name)))
+  mkdirp.sync(path.join(cwd, 'dist'))
   console.log('Creating browserify bundle...')
   let bundle = await _browserify(path.join(cwd, 'dist.js'))
   console.log(`Bundle size: ${bundle.length}`)
   console.log('Writing browserify bundle to dist/...')
-  fs.writeFileSync(path.join(cwd, 'dist', `${name}.js`), bundle)
+  fs.writeFileSync(path.join(cwd, 'dist', `${shortName}.js`), bundle)
   console.log('Creating minified bundle...')
   let { code } = await minify(bundle)
   console.log(`Minified size: ${code.length}`)
-  fs.writeFileSync(path.join(cwd, 'dist', `${name}.min.js`), code)
+  fs.writeFileSync(path.join(cwd, 'dist', `${shortName}.min.js`), code)
   console.log('Cleaning tmp dist.js file.')
   rimraf.sync(path.join(cwd, 'dist.js'))
 }
