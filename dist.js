@@ -1,6 +1,6 @@
 /* globals CustomEvent */
 process.distjs = true
-let loadjs = require('distjs').loadjs
+let loadjs = require('@jimpick/distjs-dat').loadjs
 
 const build = name => {
   // Fast Load for Chrome (avoids skip before render)
