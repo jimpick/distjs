@@ -10,7 +10,7 @@ let distfile = fs.readFileSync(path.join(__dirname, 'dist.js'))
 
 const _browserify = _path => {
   return new Promise((resolve, reject) => {
-    let b = browserify()
+    let b = browserify({debug: true})
     b.add(_path)
     b.bundle().pipe(bl((err, buffer) => {
       if (err) return reject(err)
